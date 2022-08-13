@@ -12,8 +12,6 @@ typedef struct s_list
 }	t_list;
 
 char	*get_next_line(int fd);
-t_list	*ft_lstnew(void *content);
-void	ft_lstadd_back(t_list **lst, t_list *new);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strjoin(char *s1, char *s2);
 size_t	ft_strlen(const char *s);

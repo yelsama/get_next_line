@@ -14,52 +14,6 @@ size_t	ft_strlen(const char *s)
 	return (c);
 }
 
-t_list	*ft_lstnew(void *content)
-{
-	t_list	*n;
-
-	n = malloc(sizeof(t_list));
-	if (!n)
-		return (NULL);
-	n->current = content;
-	n->next = 0;
-	return (n);
-}
-
-// t_list	*ft_lstlast(t_list *lst)
-// {
-// 	t_list	*tmp;
-
-// 	tmp = lst;
-// 	while (tmp)
-// 	{
-// 		if (tmp->next == 0)
-// 			return (tmp);
-// 		tmp = tmp->next;
-// 	}
-// 	return (tmp);
-// }
-
-void	ft_lstadd_back(t_list **lst, t_list *new)
-{
-	t_list	*temp;
-
-	if (*lst == 0)
-	{
-		*lst = new;
-		lst[0]->next = 0;
-	}
-	else
-	{
-		temp = (*lst);
-		while (temp->next != 0)
-		{
-			temp = temp->next;
-		}
-		temp->next = new;
-	}
-}
-
 char	*ft_strrchr(const char *s, int c)
 {
 	char	*ptr;

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/17 20:44:09 by ymohamed          #+#    #+#             */
+/*   Updated: 2022/08/17 21:12:02 by ymohamed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 char	*get_left(char *onboard)
@@ -15,9 +27,9 @@ char	*get_left(char *onboard)
 		free(onboard);
 		return (NULL);
 	}
-	left = malloc(sizeof(char) * (ft_strlen(onboard) - i + 1));
+	left = calloc((ft_strlen(onboard) - i + 1), sizeof(char));
 	if (!left)
-		return(NULL);
+		return (NULL);
 	i++;
 	while (onboard[i])
 		left[c++] = onboard[i++];
@@ -36,23 +48,23 @@ char	*get_aline(char *onboard)
 	while (onboard[i] != '\n' && onboard[i] != '\0')
 		i++;
 	i++;
-	line = malloc(sizeof(char) * (i + 1));
+	line = calloc((i + 1), sizeof(char));
 	if (!line)
 		return (NULL);
 	line = ft_strcpy(line, onboard);
 	return (line);
 }
 
-char	*get_read_new_with_old(int fd,char *onboard)
+char	*get_read_new_with_old(int fd, char *onboard)
 {
 	char		*block;
 	int			redchar;
 
-	block = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	block = calloc(BUFFER_SIZE, sizeof(char));
 	if (!block)
 		return (NULL);
 	redchar = (int)BUFFER_SIZE;
-	while (redchar !=0 && !ft_strrchr(block, '\n'))
+	while (redchar != 0 && !ft_strrchr(block, '\n'))
 	{
 		redchar = read(fd, block, BUFFER_SIZE);
 		block[redchar] = '\0';
@@ -63,7 +75,7 @@ char	*get_read_new_with_old(int fd,char *onboard)
 		if (onboard)
 			free(onboard);
 		free(block);
-		return(NULL);
+		return (NULL);
 	}
 	free(block);
 	return (onboard);
@@ -78,7 +90,7 @@ char	*get_next_line(int fd)
 		return (NULL);
 	onboard = get_read_new_with_old(fd, onboard);
 	if (!onboard)
-		return(NULL);
+		return (NULL);
 	line = get_aline(onboard);
 	onboard = get_left(onboard);
 	return (line);

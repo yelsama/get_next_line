@@ -5,17 +5,25 @@
 int	main()
 {
 	int	fd;
+	char *line;
 	//char *s;
 
+
 	fd = open("my.txt", O_RDONLY);
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
-	// printf("%s",get_next_line(fd));
+	if(fd == -1)
+	{
+		printf("bad file\n");
+		return (0);
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		line = get_next_line(fd);
+		printf("%s", line);
+		free(line);
+	}	
+	// printf("%s", ptr = get_next_line(fd));
+	// free(fd);
+	// printf("%s", ptr = get_next_line(fd));
 	//puts(get_next_line(fd));
 	//puts(get_next_line(fd));
 
@@ -25,6 +33,7 @@ int	main()
 	// 	printf("%s", s);
 	// 	free(s);
 	// }
+	//free(ptr);
 	close(fd);
 	 return (0);
 }

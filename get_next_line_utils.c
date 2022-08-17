@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/08/17 20:46:24 by ymohamed          #+#    #+#             */
+/*   Updated: 2022/08/17 21:13:07 by ymohamed         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
@@ -44,16 +56,17 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	if (!s1)
 	{
-		s1 = malloc(sizeof(char) *1);
+		s1 = malloc(sizeof(char) * 1);
 		s1[0] = '\0';
 	}
 	if (!s1 || !s2)
 		return (NULL);
-	fs = malloc(sizeof(char) * ( ft_strlen(s1) + ft_strlen(s2) + 1));
+	fs = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!fs)
 		return (NULL);
+	l = ft_strlen(s1);
 	i = -1;
-	while (++i < ft_strlen(s1))
+	while (++i < l)
 		fs[i] = s1[i];
 	l = 0;
 	while (s2[l] != '\0')
@@ -80,4 +93,23 @@ char	*ft_strcpy(char *dest, char *src)
 	}
 	dest[c] = '\0';
 	return (dest);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	char				*ptr;
+	unsigned long		i;
+
+	if (size != 0 && count > SIZE_MAX / size)
+		return (0);
+	ptr = malloc(count * size);
+	if (ptr == 0)
+		return (0);
+	i = 0;
+	while (i < count)
+	{
+		ptr[i] = 0;
+		i++;
+	}
+	return (ptr);
 }

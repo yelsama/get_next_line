@@ -1,87 +1,85 @@
 #include "get_next_line.h"
 
-static char	*now_get_carry(char *all)
+char	*get_left(char *onboard)
 {
+	char	*left;
 	int		i;
-	char	*ptr;
-	char	*carry;
+	int		c;
 
 	i = 0;
-	ptr = all;
-	carry = NULL;
-	while (all[i] != '\n' && all[i] != '\0')
+	c = 0;
+	while (onboard[i] != '\0' && onboard[i] != '\n')
 		i++;
+	if (onboard[i] == '\0')
+	{
+		free(onboard);
+		return (NULL);
+	}
+	left = malloc(sizeof(char) * (ft_strlen(onboard) - i + 1));
+	if (!left)
+		return(NULL);
 	i++;
-	carry = ft_strjoin(carry, ptr + i);
-	//puts(carry); ////////////////////////
-	return (carry);
+	while (onboard[i])
+		left[c++] = onboard[i++];
+	free(onboard);
+	return (left);
 }
 
-static char	*now_get_line(char *all)
-{
-	int		i;
-	char	*ptr;
+char	*get_aline(char *onboard)
+{	
 	char	*line;
-	char	temp;
+	int		i;
 
 	i = 0;
-	ptr = all;
-	line = NULL;
-	while (all[i] != '\n' && all[i] != '\0')
+	if (!onboard)
+		return (NULL);
+	while (onboard[i] != '\n' && onboard[i] != '\0')
 		i++;
-	temp = all[i + 1];
-	if (all[i] == '\n')
-			all[i + 1] = '\0';
-	line = ft_strjoin(line, all);
-	all [i + 1] = temp;
-	//printf("%s",line);  //////////////
+	i++;
+	line = malloc(sizeof(char) * (i + 1));
+	if (!line)
+		return (NULL);
+	line = ft_strcpy(line, onboard);
 	return (line);
 }
 
-static char	*get_aline_and_next(int fd, char *all, size_t BUFFER_SIZE)
+char	*get_read_new_with_old(int fd,char *onboard)
 {
 	char		*block;
-	int		redchar;
+	int			redchar;
 
 	block = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!block)
 		return (NULL);
 	redchar = (int)BUFFER_SIZE;
-	while (redchar == (int)BUFFER_SIZE)
+	while (redchar !=0 && !ft_strrchr(block, '\n'))
 	{
 		redchar = read(fd, block, BUFFER_SIZE);
-		block[BUFFER_SIZE] = '\0';
-		if (redchar == -1)
-			{
-				free (block);
-				free(all);
-			}
-		if (ft_strrchr(block, '\n') || ft_strlen(block) < BUFFER_SIZE)
-			{
-				all = ft_strjoin(all, block);
-				break;
-			}
-		all = ft_strjoin(all, block);
+		block[redchar] = '\0';
+		onboard = ft_strjoin(onboard, block);
 	}
-	free (block);
-	return (all);
+	if (redchar == -1)
+	{
+		if (onboard)
+			free(onboard);
+		free(block);
+		return(NULL);
+	}
+	free(block);
+	return (onboard);
 }
 
 char	*get_next_line(int fd)
 {
-	char		*all;
+	static char	*onboard;
 	char		*line;
-	static char	*carry;
-	int			BUFFER_SIZE;
 
-	BUFFER_SIZE = 5;
-	if (fd < 0 || BUFFER_SIZE < 1)
+	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	line = NULL;
-	//carry = NULL;
-	all = get_aline_and_next(fd, line, BUFFER_SIZE);
-	all  = ft_strjoin(carry, all);
-	line = now_get_line(all);
-	carry = now_get_carry(all);
+	onboard = get_read_new_with_old(fd, onboard);
+	if (!onboard)
+		return(NULL);
+	line = get_aline(onboard);
+	onboard = get_left(onboard);
 	return (line);
 }

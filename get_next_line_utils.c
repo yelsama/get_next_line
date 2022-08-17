@@ -40,7 +40,6 @@ char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*fs;
 	size_t	l;
-	size_t	m;
 	size_t	i;
 
 	if (!s1)
@@ -50,17 +49,35 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	if (!s1 || !s2)
 		return (NULL);
-	l = ft_strlen(s1);
-	m = ft_strlen(s2);
-	fs = malloc(sizeof(char) * (l + m + 1));
+	fs = malloc(sizeof(char) * ( ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!fs)
 		return (NULL);
 	i = -1;
-	while (++i < l)
+	while (++i < ft_strlen(s1))
 		fs[i] = s1[i];
 	l = 0;
 	while (s2[l] != '\0')
 		fs[i++] = s2[l++];
 	fs[i] = s2[l];
+	free(s1);
 	return (fs);
+}
+
+char	*ft_strcpy(char *dest, char *src)
+{
+	int	c;
+
+	c = 0;
+	while (src[c] && src[c] != '\n')
+	{
+		dest[c] = src[c];
+		c++;
+	}
+	if (src[c] == '\n')
+	{
+		dest[c] = '\n';
+		c++;
+	}
+	dest[c] = '\0';
+	return (dest);
 }

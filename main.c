@@ -5,21 +5,28 @@
 int	main()
 {
 	int	fd;
-	char *s;
+	//char *s;
 
-	fd = open("aaa.txt", O_RDONLY);
-	// puts(get_next_line(fd));
-	// puts(get_next_line(fd));
-	// puts(get_next_line(fd));
+	fd = open("my.txt", O_RDONLY);
+	printf("%s",get_next_line(fd));
+	printf("%s",get_next_line(fd));
+	printf("%s",get_next_line(fd));
+	// printf("%s",get_next_line(fd));
+	// printf("%s",get_next_line(fd));
+	// printf("%s",get_next_line(fd));
+	// printf("%s",get_next_line(fd));
+	// printf("%s",get_next_line(fd));
+	//puts(get_next_line(fd));
+	//puts(get_next_line(fd));
 
-	for (int i = 0; i < 100 ; i++)
-	{
-		s = get_next_line(fd);
-		printf("%s", s);
-		free(s);
-	}
+	// for (int i = 0; i < 100 ; i++)
+	// {
+	// 	s = get_next_line(fd);
+	// 	printf("%s", s);
+	// 	free(s);
+	// }
 	close(fd);
-	return (0);
+	 return (0);
 }
 
 //gcc -Wall -Wextra -Werror get_next_line.c get_next_line_utils.c main.c -o aread && ./aread

@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:44:09 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/20 06:39:43 by ymohamed         ###   ########.fr       */
+/*   Updated: 2022/08/20 06:41:34 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*get_left(char *onboard)
 {
@@ -85,15 +85,15 @@ char	*get_read_new_with_old(int fd, char *onboard)
 
 char	*get_next_line(int fd)
 {
-	static char	*onboard;
+	static char	*onboard[FILE_MAX];
 	char		*line;
 
 	if (fd < 0 || BUFFER_SIZE < 0)
 		return (NULL);
-	onboard = get_read_new_with_old(fd, onboard);
-	if (!onboard)
+	onboard[fd] = get_read_new_with_old(fd, onboard[fd]);
+	if (!onboard[fd])
 		return (NULL);
-	line = get_aline(onboard);
-	onboard = get_left(onboard);
+	line = get_aline(onboard[fd]);
+	onboard[fd] = get_left(onboard[fd]);
 	return (line);
 }

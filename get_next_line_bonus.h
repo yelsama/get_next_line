@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/17 20:46:47 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/20 01:15:16 by ymohamed         ###   ########.fr       */
+/*   Created: 2022/08/20 00:09:57 by ymohamed          #+#    #+#             */
+/*   Updated: 2022/08/20 01:15:33 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
-# define GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_BONUS_H
+# define GET_NEXT_LINE_BONUS_H
 
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdint.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 60
+#  define BUFFER_SIZE 9
+# endif
+# ifndef FILE_MAX
+#  define FILE_MAX 1024
 # endif
 
 char	*get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:46:24 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/19 14:44:03 by ymohamed         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:39:32 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ size_t	ft_strlen(const char *s)
 	return (c);
 }
 
-char	*ft_strrchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
 	char	*ptr;
 	char	m;
@@ -37,15 +37,11 @@ char	*ft_strrchr(const char *s, int c)
 	i = 0;
 	while (ptr[i] != '\0')
 	{
+		if (ptr[i] == m)
+			return (&ptr[i]);
 		i++;
 	}
-	while (ptr[i] != m && i != 0)
-	{
-		i--;
-	}
-	if (ptr[i] != m)
-		return (0);
-	return (&ptr[i]);
+	return (0);
 }
 
 char	*ft_strjoin(char *s1, char *s2)

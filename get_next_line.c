@@ -6,7 +6,7 @@
 /*   By: ymohamed <ymohamed@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 20:44:09 by ymohamed          #+#    #+#             */
-/*   Updated: 2022/08/20 06:39:43 by ymohamed         ###   ########.fr       */
+/*   Updated: 2022/08/20 18:41:22 by ymohamed         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*get_read_new_with_old(int fd, char *onboard)
 	if (!block)
 		return (NULL);
 	redchar = (int)BUFFER_SIZE;
-	while (redchar != 0 && !ft_strrchr(block, '\n'))
+	while (redchar != 0 && !ft_strchr(block, '\n'))
 	{
 		redchar = read(fd, block, BUFFER_SIZE);
 		if (block[0] == '\0')
